@@ -27,7 +27,7 @@ public class GemMove : MonoBehaviour
             ScoreManager.AddScore(1);
             Destroy(gameObject);
         }
-        else if ((other.gameObject.CompareTag("Ground")|other.gameObject.CompareTag("Box")) && gameObject.name != "GemPrefab")
+        else if (other.gameObject.CompareTag("Ground") && gameObject.name != "GemPrefab")
             Destroy(gameObject);
     }
 

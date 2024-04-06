@@ -8,11 +8,14 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     public static int score = 0;
-    public static int remainingTime = 120;
+    public static int remainingTime = 40;
     public TextMeshProUGUI scoreText;
     public GameObject gameOverPanel;
     public TextMeshProUGUI gameOverText;
     public static float timeMoveSpeed = 0.004f;
+
+    [SerializeField]
+    private GemFall gameFall;
 
     void Start()
     {
@@ -46,8 +49,9 @@ public class ScoreManager : MonoBehaviour
 
     private void GameOver()
     {
-        Time.timeScale = 0;
+        Time.timeScale = 0;        
         gameOverText.text = "Game Over\nScore: " + score;
         gameOverPanel.SetActive(true);
+        gameFall.StopAll();
     }
 }

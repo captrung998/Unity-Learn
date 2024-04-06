@@ -27,7 +27,7 @@ public class GemMove2 : MonoBehaviour
             pointSpeedUp += 0.01f;
             Destroy(gameObject);
         }
-        else if ((other.gameObject.CompareTag("Ground") |other.gameObject.CompareTag("Box"))&& gameObject.name != "DarkMountain")
+        else if (other.gameObject.CompareTag("Ground") && gameObject.name != "DarkMountain")
             Destroy(gameObject);
     }
 

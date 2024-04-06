@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class GemFall : MonoBehaviour
 {
@@ -19,6 +21,10 @@ public class GemFall : MonoBehaviour
     List<GameObject> upSpeedPrefab = new List<GameObject>();
     public GameObject upSpeed;
 
+    List<GameObject> listObjectMoves = new List<GameObject>();
+
+    public bool isGameover = false;
+
     void Start()
     {
         // Initialize lists
@@ -29,8 +35,10 @@ public class GemFall : MonoBehaviour
 
     void Update()
     {
+        // if(isGameover)
         // Check for spawning gems
         CheckedSpawn();
+        Debug.Log("hello");
     }
 
     private void CheckedSpawn()
@@ -63,6 +71,7 @@ public class GemFall : MonoBehaviour
             Quaternion.identity
         );
         addPrefab.Add(newAddPrefab);
+        listObjectMoves.Add(newAddPrefab);
     }
 
     private void SpawnSub()
@@ -74,14 +83,15 @@ public class GemFall : MonoBehaviour
             Quaternion.identity
         );
         subPrefab.Add(newSubPrefab);
+        listObjectMoves.Add(newSubPrefab);
     }
 
     // Spawn Up Speed (Implement functionality here if needed)
     private void SpawnUpSpeed()
     {
         Vector2 positionSubItem = Position();
-        
-        if (time !=0 && subPrefab.Count>3 && subPrefab.Count>2 )
+
+        if (time != 0 && subPrefab.Count > 3 && subPrefab.Count > 2)
         {
             GameObject newUpSpeedPrefab = Instantiate(
                 this.upSpeed,
@@ -90,8 +100,22 @@ public class GemFall : MonoBehaviour
             );
             addPrefab.Add(newUpSpeedPrefab);
             countUpSpeed--;
-
         }
+    }
+
+    public void StopAll()
+    {
+        for (int i = 0; i < listObjectMoves.Count; i++) {
+            var gameMove = listObjectMoves[i].GetComponent<GemMove>();
+            if(gameMove!= null) gameMove.speed =0;
+
+            var gameMove1 = listObjectMoves[i].GetComponent<GemMove1>();
+            if(gameMove1!= null) gameMove1.speed =0;
+
+            var gameMove2 = listObjectMoves[i].GetComponent<GemMove2>();
+            if(gameMove2!= null) gameMove2.speed =0;
+            
+         }
     }
 
     // Random Spawn
